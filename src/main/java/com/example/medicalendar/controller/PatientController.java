@@ -36,7 +36,7 @@ public class PatientController {
             patientService.login(email, password);
             return ResponseEntity.ok("Login Succesfully");
         } catch (Exception e) {
-            return ResponseEntity.status(401).build();
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 }
