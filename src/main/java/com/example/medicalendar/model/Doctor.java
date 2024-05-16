@@ -21,16 +21,26 @@ public class Doctor {
     @JoinColumn(name = "speciality_id", nullable = false)
     private MedicalSpeciality speciality;
 
-    public Doctor(Long id, String name, String gender, int bookingPrice, MedicalSpeciality speciality) {
+    @Enumerated(EnumType.STRING)
+    @Column(name = "shift_day")
+    private ShiftDay shiftDay;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "shift_duration")
+    private ShiftDuration shiftDuration;
+
+    public Doctor() {
+
+    }
+
+    public Doctor(Long id, String name, String gender, int bookingPrice, MedicalSpeciality speciality, ShiftDay shiftDay, ShiftDuration shiftDuration) {
         this.id = id;
         this.name = name;
         this.gender = gender;
         this.bookingPrice = bookingPrice;
         this.speciality = speciality;
-    }
-
-    public Doctor() {
-
+        this.shiftDay = shiftDay;
+        this.shiftDuration = shiftDuration;
     }
 
     public Long getId() {
