@@ -2,6 +2,7 @@ package com.example.medicalendar.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class Patient {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "register_date", nullable = false)
-    private Date registerDate;
+    private LocalDateTime registerDate;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Profile> profileList;
@@ -62,11 +63,11 @@ public class Patient {
         this.password = password;
     }
 
-    public Date getRegisterDate() {
+    public LocalDateTime getRegisterDate() {
         return registerDate;
     }
 
-    public void setRegisterDate(Date registerDate) {
+    public void setRegisterDate(LocalDateTime registerDate) {
         this.registerDate = registerDate;
     }
 
@@ -102,7 +103,7 @@ public class Patient {
         this.resultList = resultList;
     }
 
-    public Patient(Long id, String email, String password, Date registerDate, List<Profile> profileList, List<Notification> notificationList, List<BookingTicket> ticketList, List<ExaminationResult> resultList) {
+    public Patient(Long id, String email, String password, LocalDateTime registerDate, List<Profile> profileList, List<Notification> notificationList, List<BookingTicket> ticketList, List<ExaminationResult> resultList) {
         this.id = id;
         this.email = email;
         this.password = password;

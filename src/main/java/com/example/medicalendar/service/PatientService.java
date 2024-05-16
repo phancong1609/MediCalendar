@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 public class PatientService {
     @Autowired
@@ -23,7 +25,7 @@ public class PatientService {
         Patient newPatient = new Patient();
         newPatient.setEmail(email);
         newPatient.setPassword(pass);
-
+        newPatient.setRegisterDate(LocalDateTime.now());
         patientRepository.save(newPatient);
     }
 
