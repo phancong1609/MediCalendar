@@ -1,6 +1,10 @@
 package com.example.medicalendar.model;
 
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class Doctor {
     @Id
@@ -21,26 +25,41 @@ public class Doctor {
     @JoinColumn(name = "speciality_id", nullable = false)
     private MedicalSpeciality speciality;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "shift_day")
-    private ShiftDay shiftDay;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "doctor")
+    private List<DoctorShiftDayEntity> shiftDays;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "doctor")
+    private List<DoctorShiftDurationEntity> shiftDurations;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "shift_duration")
-    private ShiftDuration shiftDuration;
+    public List<DoctorShiftDayEntity> getShiftDays() {
+        return shiftDays;
+    }
+
+    public void setShiftDays(List<DoctorShiftDayEntity> shiftDays) {
+        this.shiftDays = shiftDays;
+    }
+
+    public List<DoctorShiftDurationEntity> getShiftDurations() {
+        return shiftDurations;
+    }
+
+    public void setShiftDurations(List<DoctorShiftDurationEntity> shiftDurations) {
+        this.shiftDurations = shiftDurations;
+    }
+
+
 
     public Doctor() {
 
     }
 
-    public Doctor(Long id, String name, String gender, int bookingPrice, MedicalSpeciality speciality, ShiftDay shiftDay, ShiftDuration shiftDuration) {
+    public Doctor(Long id, String name, String gender, int bookingPrice, MedicalSpeciality speciality, List<DoctorShiftDayEntity>  shiftDays, List<DoctorShiftDurationEntity> shiftDurations) {
         this.id = id;
         this.name = name;
         this.gender = gender;
         this.bookingPrice = bookingPrice;
         this.speciality = speciality;
-        this.shiftDay = shiftDay;
-        this.shiftDuration = shiftDuration;
+        this.shiftDays = shiftDays;
+        this.shiftDurations = shiftDurations;
     }
 
     public Long getId() {

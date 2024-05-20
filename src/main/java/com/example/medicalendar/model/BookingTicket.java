@@ -2,7 +2,10 @@ package com.example.medicalendar.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
+
 @Entity
 public class BookingTicket {
     @Id
@@ -13,15 +16,22 @@ public class BookingTicket {
     @Column(name = "order_number", nullable = false)
     private int orderNumber;
 
-    @OneToOne
-    @JoinColumn(name = "service_id")
+    @ManyToOne
+    @JoinColumn(name = "service_id", referencedColumnName = "id")
     private Service service;
 
     @Column(name = "price")
     private int price;
 
-    @Column(name = "booking_date")
-    private LocalDateTime bookingDate;
+    @Column(name = "date_of_booking")
+    private LocalDateTime dateOfBooking;
+
+    @Column(name = "bookingDate")
+    private LocalDate bookingDate;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "shift_duration")
+    private ShiftDuration shiftDuration ;
 
     public BookingTicket() {
 
@@ -58,20 +68,37 @@ public class BookingTicket {
         this.price = price;
     }
 
-    public LocalDateTime getBookingDate() {
+    public LocalDateTime getDateOfBooking() {
+        return dateOfBooking;
+    }
+
+    public void setDateOfBooking(LocalDateTime dateOfBooking) {
+        this.dateOfBooking = dateOfBooking;
+    }
+
+    public LocalDate getBookingDate() {
         return bookingDate;
     }
 
-    public void setBookingDate(LocalDateTime bookingDate) {
+    public void setBookingDate(LocalDate bookingDate) {
         this.bookingDate = bookingDate;
     }
 
+    public ShiftDuration getShiftDuration() {
+        return shiftDuration;
+    }
 
-    public BookingTicket(Long id, int orderNumber, Service service, int price, LocalDateTime bookingDate) {
+    public void setShiftDuration(ShiftDuration shiftDuration) {
+        this.shiftDuration = shiftDuration;
+    }
+
+    public BookingTicket(Long id, int orderNumber, Service service, int price, LocalDateTime dateOfBooking, LocalDate bookingDate, ShiftDuration shiftDuration) {
         this.id = id;
         this.orderNumber = orderNumber;
         this.service = service;
         this.price = price;
+        this.dateOfBooking = dateOfBooking;
         this.bookingDate = bookingDate;
+        this.shiftDuration = shiftDuration;
     }
 }

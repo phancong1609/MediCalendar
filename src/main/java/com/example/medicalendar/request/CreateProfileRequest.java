@@ -3,9 +3,9 @@ package com.example.medicalendar.request;
 import java.util.Date;
 
 public class CreateProfileRequest {
+    String patientEmail ;
     String name;
-    Date birthdate;
-    Date registerDate;
+    String birthdate;
     String gender;
     String idNumber;
     String idHealthInsurance;
@@ -26,20 +26,12 @@ public class CreateProfileRequest {
         this.name = name;
     }
 
-    public Date getBirthdate() {
+    public String getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(Date birthdate) {
+    public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
-    }
-
-    public Date getRegisterDate() {
-        return registerDate;
-    }
-
-    public void setRegisterDate(Date registerDate) {
-        this.registerDate = registerDate;
     }
 
     public String getGender() {
@@ -129,12 +121,20 @@ public class CreateProfileRequest {
     public void setAddressNumber(String addressNumber) {
         this.addressNumber = addressNumber;
     }
-    public CreateProfileRequest() {
+
+
+    public String getPatientEmail() {
+        return patientEmail;
     }
-    public CreateProfileRequest(String name, Date birthdate, Date registerDate, String gender, String idNumber, String idHealthInsurance, String job, String phone, String nation, String ethnicGroup, String province, String district, String ward, String addressNumber) {
+
+    public void setPatientEmail(String patientEmail) {
+        this.patientEmail = patientEmail;
+    }
+
+    public CreateProfileRequest(String patientEmail, String name, String birthdate, String gender, String idNumber, String idHealthInsurance, String job, String phone, String nation, String ethnicGroup, String province, String district, String ward, String addressNumber) {
+        this.patientEmail = patientEmail;
         this.name = name;
         this.birthdate = birthdate;
-        this.registerDate = registerDate;
         this.gender = gender;
         this.idNumber = idNumber;
         this.idHealthInsurance = idHealthInsurance;

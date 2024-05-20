@@ -1,12 +1,14 @@
 package com.example.medicalendar.service;
 
+import com.example.medicalendar.model.Patient;
 import com.example.medicalendar.model.Profile;
+import com.example.medicalendar.repository.PatientRepository;
 import com.example.medicalendar.repository.ProfileRepository;
 import com.example.medicalendar.request.CreateProfileRequest;
 import com.example.medicalendar.request.EditProfileRequest;
+import com.example.medicalendar.response.ProfileResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 
@@ -14,10 +16,11 @@ import java.util.Optional;
 public class ProfileService {
 
     @Autowired
-    private ProfileRepository profileRepository;
+    ProfileRepository profileRepository;
+    @Autowired
+    PatientRepository patientRepository;
 
-    public Profile createProfile(CreateProfileRequest request) {
-        // Check for duplicate idNumber, idHealthInsurance, and phone
+    public void createProfile(CreateProfileRequest request) {
         if (profileRepository.existsByIdNumber(request.getIdNumber())) {
             throw new IllegalArgumentException("ID number already exists");
         }
@@ -25,12 +28,15 @@ public class ProfileService {
             throw new IllegalArgumentException("Health insurance ID already exists");
         }
 
+        Patient p = patientRepository.findByEmail(request.getPatientEmail());
 
-        // Create profile entity
+        if (p == null) {
+            throw new IllegalArgumentException("Patient not exist");
+        }
+
         Profile profile = new Profile();
         profile.setName(request.getName());
         profile.setBirthdate(request.getBirthdate());
-        profile.setRegisterDate(request.getRegisterDate());
         profile.setGender(request.getGender());
         profile.setIdNumber(request.getIdNumber());
         profile.setIdHealthInsurance(request.getIdHealthInsurance());
@@ -43,18 +49,18 @@ public class ProfileService {
         profile.setWard(request.getWard());
         profile.setAddressNumber(request.getAddressNumber());
 
-        // Save profile to database
-        return profileRepository.save(profile);
+        p.getProfileList().add(profile);
+        profileRepository.save(profile);
+        patientRepository.save(p);
     }
 
-    public Profile editProfile(EditProfileRequest request) {
+    public void editProfile(EditProfileRequest request) {
         Optional<Profile> optionalProfile = profileRepository.findById(request.getId());
         if (optionalProfile.isPresent()) {
             Profile profile = optionalProfile.get();
 
             profile.setName(request.getName());
             profile.setBirthdate(request.getBirthdate());
-            profile.setRegisterDate(request.getRegisterDate());
             profile.setGender(request.getGender());
             profile.setIdNumber(request.getIdNumber());
             profile.setIdHealthInsurance(request.getIdHealthInsurance());
@@ -67,10 +73,18 @@ public class ProfileService {
             profile.setWard(request.getWard());
             profile.setAddressNumber(request.getAddressNumber());
 
-            // Save updated profile
-            return profileRepository.save(profile);
+            profileRepository.save(profile);
         } else {
             throw new IllegalArgumentException("Profile not found with id: " + request.getId());
         }
     }
+
+
+    public ProfileResponse getPatientProfile(String paitientEmail) {
+        Patient p = patientRepository.findByEmail(paitientEmail);
+        ProfileResponse res = new ProfileResponse();
+        res.setProfileList(p.getProfileList());
+        return res;
+    }
+
 }

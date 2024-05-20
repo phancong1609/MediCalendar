@@ -5,8 +5,7 @@ import java.util.Date;
 public class EditProfileRequest {
     Long id;
     String name;
-    Date birthdate;
-    Date registerDate;
+    String birthdate;
     String gender;
     String idNumber;
     String idHealthInsurance;
@@ -22,23 +21,6 @@ public class EditProfileRequest {
     public EditProfileRequest() {
     }
 
-    public EditProfileRequest(Long id, String name, Date birthdate, Date registerDate, String gender, String idNumber, String idHealthInsurance, String job, String phone, String nation, String ethnicGroup, String province, String district, String ward, String addressNumber) {
-        this.id = id;
-        this.name = name;
-        this.birthdate = birthdate;
-        this.registerDate = registerDate;
-        this.gender = gender;
-        this.idNumber = idNumber;
-        this.idHealthInsurance = idHealthInsurance;
-        this.job = job;
-        this.phone = phone;
-        this.nation = nation;
-        this.ethnicGroup = ethnicGroup;
-        this.province = province;
-        this.district = district;
-        this.ward = ward;
-        this.addressNumber = addressNumber;
-    }
 
     public Long getId() {
         return id;
@@ -56,20 +38,12 @@ public class EditProfileRequest {
         this.name = name;
     }
 
-    public Date getBirthdate() {
+    public String getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(Date birthdate) {
+    public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
-    }
-
-    public Date getRegisterDate() {
-        return registerDate;
-    }
-
-    public void setRegisterDate(Date registerDate) {
-        this.registerDate = registerDate;
     }
 
     public String getGender() {

@@ -2,6 +2,7 @@ package com.example.medicalendar.controller;
 
 import com.example.medicalendar.request.LoginRequest;
 import com.example.medicalendar.request.RegisterRequest;
+import com.example.medicalendar.response.MessageResponse;
 import com.example.medicalendar.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,26 +18,29 @@ public class PatientController {
     PatientService patientService;
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerRequest(@RequestBody RegisterRequest request)
+    public ResponseEntity<MessageResponse> registerRequest(@RequestBody RegisterRequest request)
     {
         try {
             patientService.register(request.getEmail(), request.getPassword(), request.getRepeatpassword());
-            return ResponseEntity.ok("Register Successfully");
+            MessageResponse response = new MessageResponse("Register Successfully");
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            MessageResponse messageResponse = new MessageResponse(e.getMessage());
+            return ResponseEntity.badRequest().body(messageResponse);
         }
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<MessageResponse> login(@RequestBody LoginRequest loginRequest) {
         String email = loginRequest.getEmail();
         String password = loginRequest.getPassword();
-
         try{
             patientService.login(email, password);
-            return ResponseEntity.ok("Login Succesfully");
+            MessageResponse response = new MessageResponse("Login Successfully");
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            MessageResponse messageResponse = new MessageResponse(e.getMessage());
+            return ResponseEntity.badRequest().body(messageResponse);
         }
     }
 }
