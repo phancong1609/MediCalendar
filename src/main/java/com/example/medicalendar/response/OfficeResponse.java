@@ -1,5 +1,6 @@
 package com.example.medicalendar.response;
 
+import com.example.medicalendar.dtos.OfficeDTO;
 import com.example.medicalendar.model.Office;
 
 import java.util.List;
@@ -20,22 +21,17 @@ public class OfficeResponse {
         this.message = message;
     }
 
-    public OfficeResponse(String message, List<Office> officeList) {
-        this.message = message;
-        this.officeList = officeList;
+    List<OfficeDTO> officeDTOS;
+
+    public List<OfficeDTO> getOfficeDTOS() {
+        return officeDTOS;
     }
 
-    List<Office> officeList;
-
-    public OfficeResponse(List<Office> officeList) {
-        this.officeList = officeList;
+    public void setOfficeDTOS(List<OfficeDTO> officeDTOS) {
+        this.officeDTOS = officeDTOS;
     }
 
-    public List<Office> getOfficeList() {
-        return officeList;
-    }
-
-    public void setOfficeList(List<Office> officeList) {
-        this.officeList = officeList;
+    public OfficeResponse(List<OfficeDTO> officeDTOS) {
+        this.officeDTOS = officeDTOS;
     }
 }

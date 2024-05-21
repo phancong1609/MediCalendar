@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 public class BookingTicket {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -32,6 +32,10 @@ public class BookingTicket {
     @Enumerated(EnumType.STRING)
     @Column(name = "shift_duration")
     private ShiftDuration shiftDuration ;
+
+    @ManyToOne
+    @JoinColumn(name = "profile_id", referencedColumnName = "id")
+    private Profile profile;
 
     public BookingTicket() {
 
@@ -100,5 +104,13 @@ public class BookingTicket {
         this.dateOfBooking = dateOfBooking;
         this.bookingDate = bookingDate;
         this.shiftDuration = shiftDuration;
+    }
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
     }
 }
