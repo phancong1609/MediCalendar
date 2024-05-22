@@ -1,5 +1,6 @@
 # Spring Boot API Project
-
+### Author 
+21110146 - Phan Lê Thành Công
 ## Overview
 
 This project is a RESTful API built using Spring Boot. It serves as a template for creating scalable and maintainable backend services with robust functionalities, including CRUD operations, authentication, and data validation.
